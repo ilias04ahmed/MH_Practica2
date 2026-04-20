@@ -6,9 +6,8 @@ from generaInstancias import generar_instancia
 from inicial import construir_mapa_estudiantes
 
 def realizar_experimentos_parametros():
-    print("Iniciando experimentos de parametros...")
+    print("Iniciando experimentos de parametros")
     
-    # Generamos una instancia pequeña para que las pruebas no tarden una eternidad
     student_exam, exams, rooms, n_slots = generar_instancia(
         n_exams=50, 
         n_students=1000, 
@@ -18,7 +17,7 @@ def realizar_experimentos_parametros():
     )
     mapa_estudiantes = construir_mapa_estudiantes(student_exam)
 
-    print("\n--- Experimento 1: Tamaño de Poblacion ---")
+    print("\nExperimento 1: Tamaño de Poblacion ")
     poblaciones = [10, 50, 100]
     resultados_pob = {}
     plt.figure(figsize=(10, 6))
@@ -43,7 +42,7 @@ def realizar_experimentos_parametros():
     plt.savefig('graficas/exp_poblacion.png')
     plt.close()
     
-    print("\n--- Experimento 2: Probabilidad de Cruce ---")
+    print("\n Experimento 2: Probabilidad de Cruce ")
     prob_cruces = [0.0, 0.4, 0.8, 1.0]
     resultados_cruce = {}
     plt.figure(figsize=(10, 6))
@@ -66,7 +65,7 @@ def realizar_experimentos_parametros():
     plt.savefig('graficas/exp_cruce.png')
     plt.close()
 
-    print("\n--- Experimento 3: Probabilidad de Mutacion ---")
+    print("\n Experimento 3: Probabilidad de Mutacion ")
     prob_mutaciones = [0.01, 0.1, 0.5]
     resultados_mutacion = {}
     plt.figure(figsize=(10, 6))
@@ -89,7 +88,7 @@ def realizar_experimentos_parametros():
     plt.savefig('graficas/exp_mutacion.png')
     plt.close()
     
-    print("\n=== RESUMEN ===")
+    print("\n RESUMEN ")
     print("1. POBLACION (Pc=0.8, Pm=0.1)")
     for n, (coste, tiempo) in resultados_pob.items():
         print(f"   N={n} -> Coste: {coste:.2f} | Tiempo: {tiempo:.2f}s")
