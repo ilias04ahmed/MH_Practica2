@@ -1,16 +1,14 @@
-import matplotlib.pyplot as plt
 import time
-from algoritmoGenetico import algoritmo_genetico
+import matplotlib.pyplot as plt
 
-# Importamos tu generador y el constructor del mapa tal cual los tienes en el main
+from algoritmoGenetico import algoritmo_genetico
 from generaInstancias import generar_instancia 
 from inicial import construir_mapa_estudiantes
 
 def realizar_experimentos_parametros():
-    print("Iniciando bateria de experimentos de parametros...")
-    print("Cargando instancia para pruebas (Instancia Pequeña Original)...")
+    print("Iniciando experimentos de parametros...")
     
-    # === GENERACIÓN DE DATOS (Exactamente igual que en tu main de la P1) ===
+    # Generamos una instancia pequeña para que las pruebas no tarden una eternidad
     student_exam, exams, rooms, n_slots = generar_instancia(
         n_exams=50, 
         n_students=1000, 
@@ -19,7 +17,6 @@ def realizar_experimentos_parametros():
         seed=42
     )
     mapa_estudiantes = construir_mapa_estudiantes(student_exam)
-    # =======================================================================
 
     print("\n--- Experimento 1: Tamaño de Poblacion ---")
     poblaciones = [10, 50, 100]
@@ -29,7 +26,6 @@ def realizar_experimentos_parametros():
     for n in poblaciones:
         print(f"Probando N = {n}...")
         inicio = time.time()
-        # Pasamos mapa_estudiantes en lugar de student_exam para mantener la consistencia
         _, coste, historial = algoritmo_genetico(
             exams, rooms, mapa_estudiantes, n_slots, 
             n_pob=n, n_gen=50, max_sin_mejora=50, 
@@ -93,16 +89,16 @@ def realizar_experimentos_parametros():
     plt.savefig('graficas/exp_mutacion.png')
     plt.close()
     
-    print("\n=== RESUMEN DE EXPERIMENTOS PARA LA MEMORIA ===")
-    print("1. TAMAÑO DE POBLACION (Pc=0.8, Pm=0.1)")
+    print("\n=== RESUMEN ===")
+    print("1. POBLACION (Pc=0.8, Pm=0.1)")
     for n, (coste, tiempo) in resultados_pob.items():
         print(f"   N={n} -> Coste: {coste:.2f} | Tiempo: {tiempo:.2f}s")
         
-    print("\n2. PROBABILIDAD DE CRUCE (N=50, Pm=0.1)")
+    print("\n2. CRUCE (N=50, Pm=0.1)")
     for pc, coste in resultados_cruce.items():
         print(f"   Pc={pc} -> Coste: {coste:.2f}")
         
-    print("\n3. PROBABILIDAD DE MUTACION (N=50, Pc=0.8)")
+    print("\n3. MUTACION (N=50, Pc=0.8)")
     for pm, coste in resultados_mutacion.items():
         print(f"   Pm={pm} -> Coste: {coste:.2f}")
 
